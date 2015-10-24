@@ -30,4 +30,19 @@ angular.module('todoApp', [])
             todos.push({text: todo, status: "new"});
          }
       }
+   }])
+
+   .controller('SummaryController', ['TodoService', '$scope',
+         function(TodoService, $scope) {
+            $scope.todos = TodoService.getTodos();
+            $scope.getCompletedCount = function () {
+               var count =0;
+               $scope.todos.forEach(function(todo){
+                  if(todo.status === "done"){
+                     count ++;
+                  }
+               });
+               return count;
+            };
+
    }]);
