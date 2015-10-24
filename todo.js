@@ -1,4 +1,5 @@
-angular.module('todoApp', [])
+
+angular.module('todoApp', ['firebase'])
    .controller('TodoController', ['$scope', 'TodoService',
       function($scope, TodoService) {
          $scope.todo = "";
@@ -10,39 +11,52 @@ angular.module('todoApp', [])
          };
 
          $scope.markAsDone = function(todo) {
-            todo.status = "done";
+            TodoService.markAsDone(todo);
          };
       }])
 
-   .service('TodoService', [function(){
-      var todos = [{text: "Netflix and chill", status: "new"}];
+   .service('TodoService', ['$firebaseArray', function($firebaseArray) {
+      // Substitue URL with your custom firebase url.
+      var ref = new Firebase("URL");
+      var todos = $firebaseArray(ref);
       return {
          getTodos: getTodos,
-         addTodo : addTodo
+         addTodo : addTodo,
+         markAsDone: markAsDone
       }
 
       function getTodos() {
          return todos;
       }
 
+      function markAsDone(todo) {
+         var obj = todos.$getRecord(todo.$id);
+         obj.status = "done";
+         todos.$save(obj).then(function(ref) {
+           console.log(ref);
+         }, function(error) {
+           console.log("Error:", error);
+         });
+
+      }
+
       function addTodo(todo) {
          if (todo !== "") {
-            todos.push({text: todo, status: "new"});
+            todos.$add({text: todo, status: "new"});
          }
       }
    }])
 
    .controller('SummaryController', ['TodoService', '$scope',
          function(TodoService, $scope) {
-            $scope.todos = TodoService.getTodos();
-            $scope.getCompletedCount = function () {
-               var count =0;
-               $scope.todos.forEach(function(todo){
-                  if(todo.status === "done"){
-                     count ++;
-                  }
-               });
-               return count;
-            };
-
+      $scope.todos = TodoService.getTodos();
+      $scope.getCompletedCount = function () {
+         var count =0;
+         $scope.todos.forEach(function(todo){
+            if (todo.status === "done") {
+               count ++;
+            }
+         });
+         return count;
+      };
    }]);
