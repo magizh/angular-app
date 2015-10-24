@@ -1,0 +1,35 @@
+.container {
+  max-width: 480px;
+  margin: 40px auto;
+}
+.center-content {
+  text-align: center;
+}
+form {
+  margin: 20px;
+}
+input {
+   width: 300px;
+   height: 30px;
+   border: 1px solid grey;
+   font-size: 14px;
+}
+body {
+  background-color: #F7F9FA;
+  color: #787878;
+  padding: 50px 0 30px;
+}
+
+.task-list {
+  margin-bottom: 45px;
+  list-style: none;
+  padding: 0;
+}
+
+.task {
+  background-color: #FFF;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  margin: 0 0 5px;
+  padding: 10px 55px 10px 15px;
+}

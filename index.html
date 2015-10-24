@@ -3,14 +3,19 @@
 <head>
    <script src="angular.min.js"></script>
    <script src="todo.js"></script>
+   <link rel="stylesheet" type="text/css" href="app.css">
 </head>
 <body>
-   <div ng-controller="TodoController">
-      <input  class="form-control input-sm"  type="text" ng-model="todo" placeholder="Enter a todo">
-      <button class="btn btn-default" ng-click="addTodo()">Add</button>
-      <ul>
-         <li ng-repeat="todo in todos">{{todo}}</li>
-      <ul>
+   <div class="container" ng-controller="TodoController">
+      <h1 class="center-content">AngularJS todo app</h1>
+      <!-- Form -->
+      <form class="center-content" ng-submit="addTodo()">
+         <input type="text" ng-model="todo" placeholder="Enter a todo">
+      </form>
+      <!-- list tasks -->
+      <ul class="task-list">
+         <li class="task" ng-repeat="todo in todos">{{todo}}</li>
+      </ul>
    <div>
 </body>
 </html>
