@@ -3,14 +3,19 @@ angular.module('todoApp', [])
       function($scope, TodoService) {
          $scope.todo = "";
          $scope.todos = TodoService.getTodos();
+
          $scope.addTodo = function () {
             TodoService.addTodo($scope.todo);
             $scope.todo = "";
          };
+
+         $scope.markAsDone = function(todo) {
+            todo.status = "done";
+         };
       }])
 
    .service('TodoService', [function(){
-      var todos = ["Netflix and chill"];
+      var todos = [{text: "Netflix and chill", status: "new"}];
       return {
          getTodos: getTodos,
          addTodo : addTodo
@@ -22,7 +27,7 @@ angular.module('todoApp', [])
 
       function addTodo(todo) {
          if (todo !== "") {
-            todos.push(todo);
+            todos.push({text: todo, status: "new"});
          }
       }
    }]);

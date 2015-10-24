@@ -14,7 +14,10 @@
       </form>
       <!-- list tasks -->
       <ul class="task-list">
-         <li class="task" ng-repeat="todo in todos">{{todo}}</li>
+         <li class="task {{todo.status}}" ng-repeat="todo in todos"
+            ng-click="markAsDone(todo)">
+            {{todo.text}}
+         </li>
       </ul>
    <div>
 </body>

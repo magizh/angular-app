@@ -33,3 +33,7 @@ body {
   margin: 0 0 5px;
   padding: 10px 55px 10px 15px;
 }
+
+.task.done {
+   text-decoration: line-through;
+}
